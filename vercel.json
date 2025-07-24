@@ -9,7 +9,7 @@
       "dest": "/server.js"
     },
     {
-      "src": "/swagger.json",
+      "src": "/swagger.json", 
       "dest": "/server.js"
     },
     {
@@ -24,5 +24,10 @@
       "src": "/(.*)",
       "dest": "/server.js"
     }
-  ]
+  ],
+  "functions": {
+    "server.js": {
+      "includeFiles": "**"
+    }
+  }
 }
