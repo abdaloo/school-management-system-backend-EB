@@ -1,10 +1,9 @@
 const express = require('express');
 const app = express();
 require('dotenv').config({ quiet: true });
-const PORT = process.env.PORT;
 const connectDB = require("./config/connectDB");
 const cors = require("cors");
-const UserRoutes = require("./routes/UserRoutes")
+const userRoute = require("./routes/UserRoute")
 
 
 app.use(cors());
@@ -16,7 +15,7 @@ app.get("/",(req,res)=>{
     res.send("Server is Fine")
 })
 
-app.use("/api/v0/user",UserRoutes);
+app.use("/api/v0/user",userRoute);
 
 // For Vercel: export app instead of listen()
 module.exports = app;
