@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 require('dotenv').config({ quiet: true });
-const connectDB = require("./config/ConnectDB");
+const ConnectDB = require("./config/ConnectDB");
 const cors = require("cors");
 const UserRoute = require("./routes/UserRoute");
 
@@ -9,7 +9,7 @@ const UserRoute = require("./routes/UserRoute");
 app.use(cors());
 app.use(express.json())
 
-connectDB();
+ConnectDB();
 
 app.get("/",(req,res)=>{
     res.send("Server is Fine")
