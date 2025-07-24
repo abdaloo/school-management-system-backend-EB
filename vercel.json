@@ -5,18 +5,6 @@
   ],
   "routes": [
     {
-      "src": "/api-docs",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/swagger.json", 
-      "dest": "/server.js"
-    },
-    {
-      "src": "/test-swagger",
-      "dest": "/server.js"
-    },
-    {
       "src": "/api/v0/(.*)",
       "dest": "/server.js"
     },
@@ -24,5 +12,10 @@
       "src": "/(.*)",
       "dest": "/server.js"
     }
-  ]
+  ],
+  "functions": {
+    "server.js": {
+      "includeFiles": "**/*"
+    }
+  }
 }
