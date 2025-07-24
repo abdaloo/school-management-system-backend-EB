@@ -18,6 +18,13 @@ app.get("/",(req,res)=>{
 
 app.use("/api/v0/user",UserRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port http://localhost:${PORT}`);
-});
+// For Vercel: export app instead of listen()
+module.exports = app;
+
+// Local development only
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT;
+  app.listen(PORT, () => {
+    console.log(`Server is running: http://localhost:${PORT}`);
+  });
+}

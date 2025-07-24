@@ -39,7 +39,35 @@ exports.CreateUser = async(req,res) => {
     }
 }
 
-exports.GetAllUser = async (req,res) => {
+exports.LoginUser = async(req,res) => {
+    try {
+        const {username, password} = req.body;
+
+        if(!username) return res.status(400).json({message: "Username is required"});
+        if(!password) return res.status(400).json({message: "Password is required"});
+
+        const user = await User.findOne({username});
+        if(!user) return res.status(400).json({message: "User not found"});
+
+        const findPassword = await bcrypt.compare(password,user.password);
+        if(!findPassword) return res.status(400).json({message:"Password is incorrect"});
+
+        const token = jwt.sign(
+            {
+                userId: user._id,
+                username: user.username,
+                email: user.email
+            },
+            "qweryouiljkhgf)(*&^%$",
+            {expiresIn: "1d"});
+
+        return res.status(200).json({message:"User Login Successfully", user: user, token:token})
+    } catch (error) {
+        res.status(500).json({message:"Error Login User", error:error.message})
+    }
+}
+
+exports.GetAllUser = async(req,res) => {
     try {
         const getUsers = await User.find();
         if(!getUsers) return res.status(400).json({message:"No users founds"});
