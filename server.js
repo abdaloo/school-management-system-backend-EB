@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 require('dotenv').config({ quiet: true });
-const connectDB = require("./config/connectDB.js");
+const connectDB = require("./config/connectDB");
 const cors = require("cors");
-const UserRoute = require("./routes/UserRoute.js")
+const UserRoute = require("./routes/UserRoute")
 
 
 app.use(cors());
