@@ -4,6 +4,7 @@ require('dotenv').config({ quiet: true });
 const ConnectDB = require("./config/connectDB");
 const cors = require("cors");
 const UserRoute = require("./routes/UserRoute");
+const StudentRoute = require("./routes/StudentRoute");
 
 // Swagger setup
 const swaggerSpec = require('./appSwagger');
@@ -53,6 +54,7 @@ app.get('/test-swagger', (req, res) => {
 });
 
 app.use("/api/v0/user",UserRoute);
+app.use("/api/v0/student",StudentRoute);
 
 // For Vercel: export app instead of listen()
 module.exports = app;

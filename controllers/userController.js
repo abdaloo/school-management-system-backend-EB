@@ -1,6 +1,7 @@
 const User = require("../models/UserModal");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require('dotenv').config({ quiet: true });
 
 exports.CreateUser = async(req,res) => {
     try {
@@ -60,7 +61,7 @@ exports.LoginUser = async(req,res) => {
                 username: user.username,
                 email: user.email
             },
-            "qweryouiljkhgf)(*&^%$",
+            process.env.JWT_SECRET,
             {expiresIn: "1d"});
 
         return res.status(200).json({message:"User Login Successfully", user: user, token:token})
@@ -71,6 +72,7 @@ exports.LoginUser = async(req,res) => {
 
 exports.GetAllUser = async(req,res) => {
     try {
+       //req.user.name, userId , email 
         const getUsers = await User.find();
         if(!getUsers) return res.status(400).json({message:"No users founds"});
 
