@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {CreateUser,GetAllUser,LoginUser} = require("../controllers/UserController.js");
+const {CreateUser,GetAllUser,LoginUser} = require("../controllers/userController.js");
 
 //Swagger UI Docs user's Schema
 /**
