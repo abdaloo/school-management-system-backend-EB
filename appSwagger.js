@@ -7,7 +7,7 @@ const swaggerOptions = {
       title: "School Management System API Documentation",
       version: "1.0.0",
       description:
-        "Welcome to the School Management System API!\n\nThis interactive documentation provides a comprehensive overview of all endpoints for the EB Planty platform. Easily manage user accounts, authentication, plant operations, and more with clear request and response examples.\n\nExplore, test, and integrate with confidence.",
+        "Welcome to the School Management System API!\n\nThis interactive documentation provides a comprehensive overview of all endpoints for the School Management System platform. Easily manage user accounts, authentication and more with clear request and response examples.\n\nExplore, test, and integrate with confidence.",
     },
     servers: [
       {
@@ -26,5 +26,5 @@ const swaggerOptions = {
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
-// console.log(JSON.stringify(swaggerSpec, null, 2));
+// console.log(JSON.stringify(swaggerSpec, null, 2)); // Uncomment to view the generated spec in the console
 module.exports = swaggerSpec;
