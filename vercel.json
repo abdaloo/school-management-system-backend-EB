@@ -6,15 +6,15 @@
   "routes": [
     {
       "src": "/api-docs",
-      "dest": "/Server.js"
+      "dest": "/server.js"
     },
     {
       "src": "/swagger.json",
-      "dest": "/Server.js"
+      "dest": "/server.js"
     },
     {
       "src": "/test-swagger",
-      "dest": "/Server.js"
+      "dest": "/server.js"
     },
     {
       "src": "/(.*)",
