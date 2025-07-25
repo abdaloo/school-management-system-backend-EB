@@ -5,15 +5,52 @@ const ConnectDB = require("./config/connectDB");
 const cors = require("cors");
 const UserRoute = require("./routes/UserRoute");
 
+// Swagger setup
+const swaggerSpec = require('./appSwagger');
+
 
 app.use(cors());
 app.use(express.json())
+
+// Swagger JSON endpoint
+app.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.send(swaggerSpec);
+});
+
+// Custom Swagger UI HTML template
+const swaggerHtml = require('./customUIHTML');
+
+// Swagger UI route with custom HTML
+app.get('/api-docs', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.send(swaggerHtml);
+});
+
 
 ConnectDB();
 
 app.get("/",(req,res)=>{
     res.send("Server is Fine")
 })
+
+// Test endpoint to verify Swagger spec generation
+app.get('/test-swagger', (req, res) => {
+  try {
+    res.json({
+      message: 'Swagger spec generated successfully',
+      hasSpec: !!swaggerSpec,
+      specKeys: Object.keys(swaggerSpec || {}),
+      pathsCount: swaggerSpec?.paths ? Object.keys(swaggerSpec.paths).length : 0
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error generating Swagger spec',
+      error: error.message
+    });
+  }
+});
 
 app.use("/api/v0/user",UserRoute);
 
