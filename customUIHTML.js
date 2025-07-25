@@ -5,7 +5,7 @@ const swaggerHtml = `
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EB Planty API Documentation</title>
+  <title>School Management System API Documentation</title>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css" />
   <style>
     html {

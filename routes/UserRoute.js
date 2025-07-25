@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const {CreateUser,GetAllUser,LoginUser} = require("../controllers/userController.js");
+const {CreateUser,GetAllUser,LoginUser} = require("../controllers/UserController.js");
 
+//Swagger UI Docs user's Schema
 /**
  * @swagger
  * components:
@@ -9,16 +10,17 @@ const {CreateUser,GetAllUser,LoginUser} = require("../controllers/userController
  *     User:
  *       type: object
  *       required:
- *         - name
+ *         - username
  *         - email
  *         - password
+ *         - confirmPassword
  *       properties:
  *         id:
  *           type: string
  *           description: The user ID
- *         name:
+ *         username:
  *           type: string
- *           description: User's full name
+ *           description: User's name
  *         email:
  *           type: string
  *           format: email
@@ -28,12 +30,13 @@ const {CreateUser,GetAllUser,LoginUser} = require("../controllers/userController
  *           description: User's password
  *       example:
  *         id: 60c72b2f9b1e8e001c8e4b8a
- *         name: John Doe
+ *         username: John Doe
  *         email: john@example.com
  *         password: hashedpassword
+ *         role: guest
  */
 
-
+//Create User jsdoc comment
 /**
  * @swagger
  * /api/v0/user/createUser:
@@ -47,16 +50,19 @@ const {CreateUser,GetAllUser,LoginUser} = require("../controllers/userController
  *           schema:
  *             type: object
  *             required:
- *               - name
+ *               - username
  *               - email
  *               - password
+ *               - confirmPassword
  *             properties:
- *               name:
+ *               username:
  *                 type: string
  *               email:
  *                 type: string
  *                 format: email
  *               password:
+ *                 type: string
+ *               confirmPassword:
  *                 type: string
  *     responses:
  *       201:
@@ -77,7 +83,7 @@ const {CreateUser,GetAllUser,LoginUser} = require("../controllers/userController
  */
 router.post("/createUser", CreateUser);
 
-
+//Login User jsdoc comment
 /**
  * @swagger
  * /api/v0/user/loginUser:
@@ -91,12 +97,12 @@ router.post("/createUser", CreateUser);
  *           schema:
  *             type: object
  *             required:
- *               - email
+ *               - username
  *               - password
  *             properties:
- *               email:
+ *               username:
  *                 type: string
- *                 format: email
+ *                 format: string
  *               password:
  *                 type: string
  *     responses:
@@ -120,6 +126,7 @@ router.post("/createUser", CreateUser);
  */
 router.post("/loginUser", LoginUser);
 
+//GetAllUser jsdoc comment
 /**
  * @swagger
  * /api/v0/user/getAllUser:
