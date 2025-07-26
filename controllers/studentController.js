@@ -1,11 +1,8 @@
-const express = require("express");
-const router = express.Router();
 const Student = require("../models/studentModel");
 
 exports.CreateStudent = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword, classs, section, rollNo } =
-      req.body;
+    const { name, email, password, confirmPassword, classs, section, rollNo } = req.body;
     const userId = req.user.userId;
     const findStd = await Student.findOne({ name: name, email: email });
     if (findStd)
@@ -21,8 +18,7 @@ exports.CreateStudent = async (req, res) => {
       rollNo: rollNo
     });
 
-    const emailRegex =
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z]+[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegex =/^[a-zA-Z0-9._%+-]+@[a-zA-Z]+[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email))
       return res.status(400).json({ message: "Invalid email" });
 
