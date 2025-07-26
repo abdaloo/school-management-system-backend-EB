@@ -1,5 +1,0 @@
-User's API's:
-
-Get All User Data: https://school-management-system-eb-backend.vercel.app/api/v0/user/getAllUser
-Create User: https://school-management-system-eb-backend.vercel.app/api/v0/user/createUser
-Login User: https://school-management-system-eb-backend.vercel.app/api/v0/user/loginUser
