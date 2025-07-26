@@ -1,6 +1,6 @@
 const Student = require("../models/studentModel");
 
-exports.CreateStudent = async (req, res) => {s
+exports.CreateStudent = async (req, res) => {
   try {
     const { name, email, password, confirmPassword, classs, section, rollNo } = req.body;
     const userId = req.user.userId;
