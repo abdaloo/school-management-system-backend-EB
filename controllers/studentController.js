@@ -12,6 +12,7 @@ exports.CreateStudent = async (req, res) => {
       name: name,
       email: email,
       password: password,
+      confirmPassword: confirmPassword,
       classs: classs,
       section: section,
       rollNo: rollNo
