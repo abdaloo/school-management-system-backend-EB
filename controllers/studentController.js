@@ -3,7 +3,7 @@ const { upload, uploadToCloudinary } = require("../config/cloudinaryConfig");
 
 exports.CreateStudent = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword, classs, section, rollNo } =
+    const { name, email, password, confirmPassword, classs, section, rollNo, image } =
       req.body;
     const userId = req.user.userId;
     const findStd = await Student.findOne({ name: name, email: email });
@@ -18,6 +18,7 @@ exports.CreateStudent = async (req, res) => {
       classs: classs,
       section: section,
       rollNo: rollNo,
+      imageURL: image,
     });
 
     const emailRegex =

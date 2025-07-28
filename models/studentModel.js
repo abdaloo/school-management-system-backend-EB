@@ -43,6 +43,10 @@ const student_Schema = new mongoose.Schema({
         required: [true,'rollNo is required'],
         unique: true
     },
+    image: {
+        type: String,  // This will store the image URL/path
+        required: [true, 'Student image is required']
+    },
 
 },{timestamps:true});
 
