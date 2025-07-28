@@ -51,7 +51,7 @@ exports.CreateStudent = async (req, res) => {
 
 exports.GetAllStudent = async (req, res) => {
   try {
-    const getStudents = await Student.find({userId:req.user.userId});
+    const getStudents = await Student.find({userId:req.user.userId}).select("-confirmPassword");
     if (!getStudents) return res.status(400).json({ message: "No students found" });
 
     return res.status(200).json({ message: "Students fetched successfully", students: getStudents });
