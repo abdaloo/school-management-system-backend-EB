@@ -85,3 +85,14 @@ exports.DeleteStudent = async (req,res) => {
         res.status(500).json({message:"Error Deleting Student", error:error.message})
     }
 };
+
+exports.GetSpecificStudent = async (req,res) =>{
+  try {
+    const GetSpecificStudent = await Student.findById(req.params.id).select("-confirmPassword");
+    if(!GetSpecificStudent) return res.status(400).json({message:"Student not found"});
+
+    return res.status(200).json({message:"Student fetched successfully", student:GetSpecificStudent})
+  } catch (error) {
+    return res.status(400).json({message:"Error Getting Specific Student", error:error.message})
+  }
+}
