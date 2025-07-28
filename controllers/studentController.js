@@ -18,7 +18,7 @@ exports.CreateStudent = async (req, res) => {
       classs: classs,
       section: section,
       rollNo: rollNo,
-      imageURL: image,
+      image: image,
     });
 
     const emailRegex =
