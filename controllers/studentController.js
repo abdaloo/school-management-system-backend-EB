@@ -150,7 +150,7 @@ exports.uploadStudentImage = async (req, res) => {
         return res.status(400).json({ message: "No image file provided" });
       }
 
-      // Validate PNG extension (case-insensitive)
+      // Validate following extensions (case-insensitive)
       const fileName = req.file.originalname || req.file.filename;
 
       if (!fileName || !/\.(jpg|jpeg|png|webp|svg)$/i.test(fileName)) {
