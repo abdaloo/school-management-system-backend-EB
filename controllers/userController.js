@@ -62,7 +62,7 @@ exports.LoginUser = async(req,res) => {
                 email: user.email
             },
             process.env.JWT_SECRET,
-            {expiresIn: "7d"});
+            {expiresIn: "1d"});
 
         return res.status(200).json({message:"User Login Successfully", user: user, token:token})
     } catch (error) {
