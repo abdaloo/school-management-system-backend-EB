@@ -100,6 +100,45 @@ const authMiddleware = require("../middleware/authMiddleware");
  */
 router.post("/createStudent",authMiddleware,CreateStudent);
 
+//UploadStudentImage jsdoc comment
+/**
+ * @swagger
+ * /api/v0/student/uploadImage:
+ *   post:
+ *     summary: Upload a student image
+ *     tags: [Students]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Image uploaded successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 imageUrl:
+ *                   type: string
+ *                   format: uri
+ *                 msg:
+ *                   type: string
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ */
+router.post('/uploadImage',authMiddleware, uploadStudentImage);
+
 //GetAllStudent jsdoc comment
 /**
  * @swagger
@@ -236,44 +275,5 @@ router.put("/updateStudent/:id",authMiddleware,UpdateStudent);
  *         description: Unauthorized
  */
 router.delete("/deleteStudent/:id",authMiddleware,DeleteStudent);
-
-//UploadStudentImage jsdoc comment
-/**
- * @swagger
- * /api/v0/student/uploadImage:
- *   post:
- *     summary: Upload a student image
- *     tags: [Students]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               image:
- *                 type: string
- *                 format: binary
- *     responses:
- *       200:
- *         description: Image uploaded successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 imageUrl:
- *                   type: string
- *                   format: uri
- *                 msg:
- *                   type: string
- *       400:
- *         description: Bad request
- *       401:
- *         description: Unauthorized
- */
-router.post('/uploadImage',authMiddleware, uploadStudentImage);
 
 module.exports = router;
