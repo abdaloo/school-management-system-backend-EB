@@ -7,11 +7,12 @@ const UserRoute = require("./routes/UserRoute");
 const StudentRoute = require("./routes/StudentRoute");
 const AttendanceRoute = require("./routes/AttendanceRoute");
 const SubjectRoute = require("./routes/SubjectRoute");
+const ClassRoute = require("./routes/ClassRoute");
 
 // Swagger setup
 const swaggerSpec = require('./appSwagger');
 
-
+// Middleware
 app.use(cors());
 app.use(express.json())
 
@@ -31,9 +32,10 @@ app.get('/api-docs', (req, res) => {
   res.send(swaggerHtml);
 });
 
-
+// Connect to MongoDB
 ConnectDB();
 
+// Health check
 app.get("/",(req,res)=>{
     res.send("Server is Fine")
 })
@@ -55,10 +57,12 @@ app.get('/test-swagger', (req, res) => {
   }
 });
 
+// Routes
 app.use("/api/v0/user",UserRoute);
 app.use("/api/v0/student",StudentRoute);
 app.use("/api/v0/attendance",AttendanceRoute);
 app.use("/api/v0/subject",SubjectRoute);
+app.use("/api/v0/class",ClassRoute);
 
 // For Vercel: export app instead of listen()
 module.exports = app;
