@@ -6,6 +6,7 @@ const cors = require("cors");
 const UserRoute = require("./routes/UserRoute");
 const StudentRoute = require("./routes/StudentRoute");
 const AttendanceRoute = require("./routes/AttendanceRoute");
+const SubjectRoute = require("./routes/SubjectRoute");
 
 // Swagger setup
 const swaggerSpec = require('./appSwagger');
@@ -57,6 +58,7 @@ app.get('/test-swagger', (req, res) => {
 app.use("/api/v0/user",UserRoute);
 app.use("/api/v0/student",StudentRoute);
 app.use("/api/v0/attendance",AttendanceRoute);
+app.use("/api/v0/subject",SubjectRoute);
 
 // For Vercel: export app instead of listen()
 module.exports = app;
