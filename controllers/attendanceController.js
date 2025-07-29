@@ -8,11 +8,13 @@ exports.markAttendance = async (req, res) => {
     const { date, attendanceList } = req.body; // attendanceList: [{ studentId, status }]
 
     if (!date || !attendanceList) {
-      return res.status(400).json({ message: "Date and attendance list are required." });
+      return res
+        .status(400)
+        .json({ message: "Date and attendance list are required." });
     }
 
-    const today = new Date(date);
-    today.setHours(0, 0, 0, 0);
+    const [year, month, day] = date.split("-");
+    const today = new Date(Date.UTC(year, month - 1, day));
 
     const createdRecords = [];
     const failedRecords = [];
@@ -22,7 +24,10 @@ exports.markAttendance = async (req, res) => {
 
       // Check if student belongs to logged-in teacher
       if (!student || student.userId.toString() !== teacherId) {
-        failedRecords.push({ studentId: record.studentId, error: "Not allowed" });
+        failedRecords.push({
+          studentId: record.studentId,
+          error: "Not allowed",
+        });
         continue;
       }
 
@@ -37,14 +42,22 @@ exports.markAttendance = async (req, res) => {
         createdRecords.push(attendance);
       } catch (err) {
         if (err.code === 11000) {
-          failedRecords.push({ studentId: record.studentId, error: "Attendance already marked" });
+          failedRecords.push({
+            studentId: record.studentId,
+            error: "Attendance already marked",
+          });
         } else {
-          failedRecords.push({ studentId: record.studentId, error: err.message });
+          failedRecords.push({
+            studentId: record.studentId,
+            error: err.message,
+          });
         }
       }
     }
 
-    res.status(201).json({ message: "Attendance processed", createdRecords, failedRecords });
+    res
+      .status(201)
+      .json({ message: "Attendance processed", createdRecords, failedRecords });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
@@ -56,17 +69,18 @@ exports.getAttendanceByDate = async (req, res) => {
     const teacherId = req.user.userId;
     const { date } = req.query;
 
-    const queryDate = new Date(date);
-    queryDate.setHours(0, 0, 0, 0);
-
+    const [year, month, day] = date.split("-");
+    const today = new Date(Date.UTC(year, month - 1, day));
     const attendance = await Attendance.find({
       teacherId,
-      date: queryDate
+      date: today,
     }).populate("studentId", "name rollNo");
 
     res.status(200).json(attendance);
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetch attendance", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Failed to fetch attendance", error: error.message });
   }
 };
 
@@ -74,12 +88,17 @@ exports.getAttendanceByDate = async (req, res) => {
 exports.updateAttendance = async (req, res) => {
   try {
     const teacherId = req.user.userId;
-    const attendanceId  = req.params.id;
-    const { status } = req.body;    
+    const attendanceId = req.params.id;
+    const { status } = req.body;
 
-    const attendance = await Attendance.findOne({ _id: attendanceId, teacherId });
+    const attendance = await Attendance.findOne({
+      _id: attendanceId,
+      teacherId,
+    });
     if (!attendance) {
-      return res.status(404).json({ message: "Attendance not found or not allowed" });
+      return res
+        .status(404)
+        .json({ message: "Attendance not found or not allowed" });
     }
 
     attendance.status = status;
@@ -95,12 +114,17 @@ exports.updateAttendance = async (req, res) => {
 exports.deleteAttendance = async (req, res) => {
   try {
     const teacherId = req.user.userId;
-    const attendanceId  = req.params.id;
+    const attendanceId = req.params.id;
 
-    const attendance = await Attendance.findOneAndDelete({ _id: attendanceId, teacherId });
+    const attendance = await Attendance.findOneAndDelete({
+      _id: attendanceId,
+      teacherId,
+    });
 
     if (!attendance) {
-      return res.status(404).json({ message: "Attendance not found or not allowed" });
+      return res
+        .status(404)
+        .json({ message: "Attendance not found or not allowed" });
     }
 
     res.status(200).json({ message: "Attendance deleted" });

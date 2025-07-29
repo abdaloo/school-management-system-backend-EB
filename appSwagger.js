@@ -19,10 +19,25 @@ const swaggerOptions = {
         description: "Development server"
       },
     ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+          description: "Enter JWT Bearer token in format: Bearer <token>"
+        }
+      }
+    },
+    // To apply Bearer token security globally to all endpoints in a route, add:
+    // security: [{ bearerAuth: [] }],
+    // Example for global security (uncomment below to apply to all endpoints):
+    // security: [ { bearerAuth: [] } ],
   },
   apis: [
     "./routes/UserRoute.js",
     "./routes/StudentRoute.js"
+    // Add attendance route file here in future
   ],
 };
 
