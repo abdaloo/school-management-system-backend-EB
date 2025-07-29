@@ -5,7 +5,7 @@ const ConnectDB = require("./config/connectDB");
 const cors = require("cors");
 const UserRoute = require("./routes/UserRoute");
 const StudentRoute = require("./routes/StudentRoute");
-const AttendanceRoute = require("./routes/attendanceRoute");
+const AttendanceRoute = require("./routes/AttendanceRoute");
 
 // Swagger setup
 const swaggerSpec = require('./appSwagger');
