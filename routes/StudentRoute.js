@@ -8,6 +8,6 @@ router.get("/getAllStudent",authMiddleware,GetAllStudent);
 router.get("/getSpecificStudent/:id",authMiddleware,GetSpecificStudent);
 router.put("/updateStudent/:id",authMiddleware,UpdateStudent);
 router.delete("/deleteStudent/:id",authMiddleware,DeleteStudent);
-router.post('/uploadImage', uploadStudentImage);
+router.post('/uploadImage',authMiddleware, uploadStudentImage);
 
 module.exports = router;
