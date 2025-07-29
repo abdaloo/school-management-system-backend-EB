@@ -29,15 +29,12 @@ const swaggerOptions = {
         }
       }
     },
-    // To apply Bearer token security globally to all endpoints in a route, add:
-    // security: [{ bearerAuth: [] }],
-    // Example for global security (uncomment below to apply to all endpoints):
-    // security: [ { bearerAuth: [] } ],
+    // security: [ { bearerAuth: [] } ],// This enable all endpoints to be protected by JWT token globally.
   },
   apis: [
     "./routes/UserRoute.js",
-    "./routes/StudentRoute.js"
-    // Add attendance route file here in future
+    "./routes/StudentRoute.js",
+    "./routes/attendanceRoute.js",
   ],
 };
 
