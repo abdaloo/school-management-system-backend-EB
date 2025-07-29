@@ -35,7 +35,8 @@ const swaggerOptions = {
     "./routes/UserRoute.js",
     "./routes/StudentRoute.js",
     "./routes/AttendanceRoute.js",
-    "./routes/ClassRoute.js"
+    "./routes/ClassRoute.js",
+    "./routes/SubjectRoute.js"
   ],
 };
 
