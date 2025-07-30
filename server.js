@@ -8,6 +8,7 @@ const StudentRoute = require("./routes/StudentRoute");
 const AttendanceRoute = require("./routes/AttendanceRoute");
 const SubjectRoute = require("./routes/SubjectRoute");
 const ClassRoute = require("./routes/ClassRoute");
+const EventRoute = require("./routes/EventRoute");
 
 // Swagger setup
 const swaggerSpec = require('./appSwagger');
@@ -63,6 +64,7 @@ app.use("/api/v0/student",StudentRoute);
 app.use("/api/v0/attendance",AttendanceRoute);
 app.use("/api/v0/subject",SubjectRoute);
 app.use("/api/v0/class",ClassRoute);
+app.use("/api/v0/event",EventRoute);
 
 // For Vercel: export app instead of listen()
 module.exports = app;
