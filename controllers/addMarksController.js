@@ -18,6 +18,26 @@ exports.createMarks = async (req, res) => {
       return res.status(400).json({ message: "students array is required" });
     }
 
+    // Prevent duplicate marks for same student, subject, section, and date
+    const duplicateChecks = await Promise.all(students.map(student =>
+      AddMarks.findOne({
+        teacherId,
+        classId,
+        subjectId,
+        section,
+        date,
+        studentId: student.studentId
+      })
+    ));
+
+    const duplicates = duplicateChecks.filter(doc => !!doc);
+    if (duplicates.length > 0) {
+      return res.status(409).json({
+        message: "Duplicate marks detected. One or more students already have marks for this subject, section, and date.",
+        duplicates: duplicates.map(doc => ({ studentId: doc.studentId, marks: doc.marks }))
+      });
+    }
+
     // Prepare bulk documents
     const marksDocs = students.map(student => ({
       teacherId,
