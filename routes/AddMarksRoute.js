@@ -1,7 +1,7 @@
 
 const express = require("express");
 const router = express.Router();
-const {createMarks,getAllStudentMarks,updateMarks,deleteMarks} = require("../controllers/addMarksController.js");
+const {createMarks,getAllStudentMarks,getSpecificMarks,updateMarks,deleteMarks} = require("../controllers/addMarksController.js");
 const authMiddleware = require("../middleware/authMiddleware.js");
 
 //Swagger UI Docs Marks Assignment Schema
@@ -138,6 +138,40 @@ router.post("/assignMarks",authMiddleware,createMarks);
  *         description: Unauthorized
  */
 router.get("/getStudentMarks",authMiddleware,getAllStudentMarks);
+
+//Swagger UI Docs Get Specific Marks
+/**
+ * @swagger
+ * /api/v0/marks/getSpecificMarks/{id}:
+ *   get:
+ *     summary: Get specific marks record by ID
+ *     tags: [Marks]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The marks record ID
+ *     responses:
+ *       200:
+ *         description: Marks record fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 marks:
+ *                   $ref: '#/components/schemas/MarksAssignment'
+ *       404:
+ *         description: Marks record not found
+ *       400:
+ *         description: Bad request */
+router.get("/getSpecificMarks/:id",authMiddleware,getSpecificMarks);
 
 //Swagger UI Docs Update Marks
 /**

@@ -85,6 +85,18 @@ exports.getAllStudentMarks = async (req, res) => {
   }
 };
 
+//get specific marks record by id
+exports.getSpecificMarks = async (req, res) => {
+  try {
+    const getSpecificMarks = await AddMarks.findById(req.params.id);
+    if (!getSpecificMarks) return res.status(400).json({ message: "Marks not found" });
+
+    return res.status(200).json({ message: "Marks fetched successfully", marks: getSpecificMarks });
+  } catch (error) {
+    return res.status(500).json({ message: "Error Getting Specific Marks", error: error.message });
+  }
+};
+
 
 // Update Marks Controller
 // Updates marks for a specific record by ID
