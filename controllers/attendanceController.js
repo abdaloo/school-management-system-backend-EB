@@ -84,6 +84,22 @@ exports.getAttendanceByDate = async (req, res) => {
   }
 };
 
+//get all attendance of a student
+exports.getAttendanceByStudent = async (req, res) => {
+  try {
+    const studentId = req.params.id;
+    const attendance = await Attendance.find({
+      studentId,
+    }).populate("teacherId", "name");
+
+    res.status(200).json(attendance);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to fetch attendance", error: error.message });
+  }
+};
+
 // Update attendance
 exports.updateAttendance = async (req, res) => {
   try {

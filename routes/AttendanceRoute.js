@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { markAttendance, getAttendanceByDate, updateAttendance, deleteAttendance } = require("../controllers/attendanceController");
+const { markAttendance, getAttendanceByDate,getAttendanceByStudent ,updateAttendance, deleteAttendance } = require("../controllers/attendanceController");
 const authMiddleware = require("../middleware/authMiddleware");
 
 /**
@@ -113,6 +113,8 @@ router.post("/markAttendance", authMiddleware, markAttendance);
  *         description: Unauthorized
  */
 router.get("/getAttendanceByDate", authMiddleware, getAttendanceByDate);
+
+router.get("/getAttendanceByStudent",authMiddleware,getAttendanceByStudent);
 
 /**
  * @swagger
