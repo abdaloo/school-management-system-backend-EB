@@ -22,9 +22,9 @@ const addMarksSchema = new mongoose.Schema({
         required: true
     },
     section: {
-        type: String,
-        required: [true,'Section is required'],
-        enum: ['A', 'B', 'C', 'D']
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Section",
+        required: true
     },
     marks: {
         type: Number,

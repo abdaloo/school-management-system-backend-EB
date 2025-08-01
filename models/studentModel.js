@@ -33,10 +33,9 @@ const student_Schema = new mongoose.Schema({
         required: false
     },
     section: {
-        type: String,
-        required: [true,'section is required'],
-        enum: ['A', 'B', 'C', 'D'],
-        default: 'A'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Section",
+        required: true
     },
     rollNo: {
         type: Number,

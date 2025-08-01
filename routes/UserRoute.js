@@ -64,6 +64,8 @@ const {CreateUser,GetAllUser,LoginUser,updateUser,deleteUser, getSpecificUser} =
  *                 type: string
  *               confirmPassword:
  *                 type: string
+ *               role:
+ *                 type: string
  *     responses:
  *       201:
  *         description: User created successfully
