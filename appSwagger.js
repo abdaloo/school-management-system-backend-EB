@@ -39,7 +39,8 @@ const swaggerOptions = {
     "./routes/SubjectRoute.js",
     "./routes/EventRoute.js",
     "./routes/HomeworkRoute.js",
-    "./routes/AddMarksRoute.js"
+    "./routes/AddMarksRoute.js",
+    "./routes/SectionRoute.js",
   ],
 };
 
