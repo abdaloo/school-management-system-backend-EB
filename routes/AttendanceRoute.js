@@ -3,6 +3,7 @@ const router = express.Router();
 const { markAttendance, getAttendanceByDate,getAttendanceByStudent ,updateAttendance, deleteAttendance } = require("../controllers/attendanceController");
 const authMiddleware = require("../middleware/authMiddleware");
 
+//Swagger UI Docs Attendance's Schema
 /**
  * @swagger
  * components:
@@ -44,6 +45,7 @@ const authMiddleware = require("../middleware/authMiddleware");
  *             status: "leave"
  */
 
+//Swagger UI Docs Mark Attendance
 /**
  * @swagger
  * /api/v0/attendance/markAttendance:
@@ -77,6 +79,7 @@ const authMiddleware = require("../middleware/authMiddleware");
  */
 router.post("/markAttendance", authMiddleware, markAttendance);
 
+//Swagger UI Docs Get Attendance By Date
 /**
  * @swagger
  * /api/v0/attendance/getAttendanceByDate:
@@ -114,8 +117,44 @@ router.post("/markAttendance", authMiddleware, markAttendance);
  */
 router.get("/getAttendanceByDate", authMiddleware, getAttendanceByDate);
 
+//Swagger UI Docs Get Attendance By Student
+/**
+ * @swagger
+ * /api/v0/attendance/getAttendanceByStudent/{id}:
+ *   get:
+ *     summary: Get attendance records by student ID
+ *     tags: [Attendance]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The student ID
+ *     responses:
+ *       200:
+ *         description: Attendance records for the specified student
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 attendance:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Attendance'
+ *                 msg:
+ *                   type: string
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ */
 router.get("/getAttendanceByStudent",authMiddleware,getAttendanceByStudent);
 
+//Swagger UI Docs Update Attendance
 /**
  * @swagger
  * /api/v0/attendance/updateAttendance/{id}:
@@ -158,6 +197,7 @@ router.get("/getAttendanceByStudent",authMiddleware,getAttendanceByStudent);
  */
 router.put("/updateAttendance/:id", authMiddleware, updateAttendance);
 
+//Swagger UI Docs Delete Attendance
 /**
  * @swagger
  * /api/v0/attendance/deleteAttendance/{id}:
