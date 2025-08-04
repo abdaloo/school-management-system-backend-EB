@@ -11,7 +11,7 @@ const StudentPromotionModel = require("../models/studentPromotionModel");
  */
 exports.promoteMultipleStudents = async (req, res) => {
   try {
-    const { teacherId, students, newClassId, newSectionId } = req.body;//students: [ { studentId, currentClassId, currentSectionId } ],
+    const { teacherId, students, newClassId, newSectionId } = req.body;
     if (!teacherId || !Array.isArray(students) || students.length === 0 || !newClassId || !newSectionId) {
       return res.status(400).json({ message: "Missing required fields." });
     }
@@ -33,11 +33,11 @@ exports.promoteMultipleStudents = async (req, res) => {
     await promotion.save();
 
     return res.status(201).json({
+      status:201,
       message: "Students promoted successfully.",
-      promotion
+      promotedStudents:promotion
     });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Error promoting Students", error: error.message });
   }
 };
