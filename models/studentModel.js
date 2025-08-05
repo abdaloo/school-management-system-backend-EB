@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const student_Schema = new mongoose.Schema({
-    userId:{
+    teacherId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
@@ -32,7 +32,7 @@ const student_Schema = new mongoose.Schema({
         ref: "Class",
         required: false
     },
-    section: {
+    sectionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Section",
         required: true

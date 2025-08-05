@@ -3,20 +3,20 @@ const { upload, uploadToCloudinary } = require("../config/cloudinaryConfig");
 
 exports.CreateStudent = async (req, res) => {
   try {
-    const { name, email, password, confirmPassword, classs, section, rollNo, image } =
+    const { name, email, password, confirmPassword, classs, sectionId, rollNo, image } =
       req.body;
-    const userId = req.user.userId;
+    const teacherId = req.user.userId;
     const findStd = await Student.findOne({ name: name, email: email });
     if (findStd)
       return res.status(400).json({ message: "Student already exists" });
     const newStudent = await Student({
-      userId: userId,
+      teacherId: teacherId,
       name: name,
       email: email,
       password: password,
       confirmPassword: confirmPassword,
       classs: classs,
-      section: section,
+      sectionId: sectionId,
       rollNo: rollNo,
       image: image,
     });
@@ -53,7 +53,7 @@ exports.CreateStudent = async (req, res) => {
 
 exports.GetAllStudent = async (req, res) => {
   try {
-    const getStudents = await Student.find({ userId: req.user.userId }).select(
+    const getStudents = await Student.find({ teacherId: req.user.userId }).select(
       "-confirmPassword"
     );
     if (!getStudents)

@@ -1,4 +1,5 @@
 const StudentPromotionModel = require("../models/studentPromotionModel");
+const Student = require("../models/studentModel");
 
 // Promote multiple students to a new class and section in sequence
 //sample data for postman
@@ -42,6 +43,20 @@ exports.promoteMultipleStudents = async (req, res) => {
       newSectionId
     });
     await promotion.save();
+
+    // Update each student's teacherId, classId, and sectionId in Student collection
+    for (const s of students) {
+      await Student.updateOne(
+        { _id: s.studentId },
+        {
+          $set: {
+            teacherId: teacherId,
+            classId: newClassId,
+            sectionId: newSectionId
+          }
+        }
+      );
+    }
 
     return res.status(201).json({
       status:201,
