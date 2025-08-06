@@ -2,16 +2,35 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const ConnectDB = require('./config/connectDB');
+
+// Routes
+const UserRoute = require('./routes/UserRoute');
+const StudentRoute = require('./routes/StudentRoute');
+const AttendanceRoute = require('./routes/AttendanceRoute');
+const SubjectRoute = require('./routes/SubjectRoute');
+const ClassRoute = require('./routes/ClassRoute');
+const EventRoute = require('./routes/EventRoute');
+const HomeworkRoute = require('./routes/HomeworkRoute');
+const AddMarksRoute = require('./routes/AddMarksRoute');
+const SectionRoute = require('./routes/SectionRoute');
+const DateSheetRoute = require('./routes/dateSheetRoute');
+const StudentPromotionRoute = require('./routes/StudentPromotionRoute');
+const QuizRoute = require('./routes/QuizRoute');
+
+// Swagger
 const swaggerSpec = require('./appSwagger');
 const swaggerHtml = require('./customUIHTML');
 
+// App Initialization
 dotenv.config({ quiet: true });
-
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Connect to MongoDB
+ConnectDB();
 
 // Swagger JSON Endpoint
 app.get('/swagger.json', (req, res) => {
@@ -48,36 +67,26 @@ app.get('/test-swagger', (req, res) => {
   }
 });
 
-// Connect to MongoDB
-ConnectDB();
+// API Routes Registration (No Loop)
+app.use("/api/v0/user", UserRoute);
+app.use("/api/v0/student", StudentRoute);
+app.use("/api/v0/attendance", AttendanceRoute);
+app.use("/api/v0/subject", SubjectRoute);
+app.use("/api/v0/class", ClassRoute);
+app.use("/api/v0/event", EventRoute);
+app.use("/api/v0/homework", HomeworkRoute);
+app.use("/api/v0/marks", AddMarksRoute);
+app.use("/api/v0/section", SectionRoute);
+app.use("/api/v0/dateSheet", DateSheetRoute);
+app.use("/api/v0/studentPromotion", StudentPromotionRoute);
+app.use("/api/v0/quiz", QuizRoute);
 
-// Dynamic Route Loader
-const routes = [
-  { path: '/user', module: './routes/UserRoute' },
-  { path: '/student', module: './routes/StudentRoute' },
-  { path: '/attendance', module: './routes/AttendanceRoute' },
-  { path: '/subject', module: './routes/SubjectRoute' },
-  { path: '/class', module: './routes/ClassRoute' },
-  { path: '/event', module: './routes/EventRoute' },
-  { path: '/homework', module: './routes/HomeworkRoute' },
-  { path: '/marks', module: './routes/AddMarksRoute' },
-  { path: '/section', module: './routes/SectionRoute' },
-  { path: '/dateSheet', module: './routes/dateSheetRoute' },
-  { path: '/studentPromotion', module: './routes/StudentPromotionRoute' },
-  { path: '/quiz', module: './routes/QuizRoute' },
-];
-
-// Register Routes
-routes.forEach(route => {
-  app.use(`/api/v0${route.path}`, require(route.module));
-});
-
-// Export app for Vercel
+// For Vercel: Export App (No app.listen)
 module.exports = app;
 
-// Local Development Server
+// Local Development Only (app.listen)
 if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 3004;
+  const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
     console.log(`Server is running on port: http://localhost:${PORT}`);
   });
