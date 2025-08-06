@@ -43,6 +43,7 @@ const swaggerOptions = {
     "./routes/SectionRoute.js",
     "./routes/dateSheetRoute.js",
     "./routes/StudentPromotionRoute.js",
+    "./routes/QuizRoute.js",
     // Add other route files here as needed
   ],
 };

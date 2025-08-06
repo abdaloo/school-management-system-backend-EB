@@ -2,7 +2,7 @@ const Quiz = require("../models/quizModel");
 
 exports.createQuiz = async (req, res) => {
   try {
-    const { classId, sectionId, subjectId, title, description, questions } = req.body;
+    const { classId, sectionId, subjectId, title, description, questions } = req.body;//questions = [{questionText, options, marks}]
     const teacherId = req.user.userId;
 
     if (
