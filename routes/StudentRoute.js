@@ -1,7 +1,7 @@
 
 const express = require("express");
 const router = express.Router();
-const {CreateStudent,GetAllStudent,UpdateStudent,DeleteStudent,GetSpecificStudent,uploadStudentImage} = require("../controllers/studentController.js");
+const {CreateStudent,LoginStudent,GetAllStudent,UpdateStudent,DeleteStudent,GetSpecificStudent,uploadStudentImage} = require("../controllers/studentController.js");
 const authMiddleware = require("../middleware/authMiddleware");
 
 //Swagger UI Docs student's Schema
@@ -99,6 +99,47 @@ const authMiddleware = require("../middleware/authMiddleware");
  *         description: Bad request
  */
 router.post("/createStudent",authMiddleware,CreateStudent);
+
+//Login Student jsdoc comment
+/**
+ * @swagger
+ * /api/v0/student/loginStudent:
+ *   post:
+ *     summary: Login a student
+ *     tags: [Students]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 student:
+ *                   $ref: '#/components/schemas/Student'
+ *                 msg:
+ *                   type: string
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ */
+router.post("/loginStudent",LoginStudent);
 
 //UploadStudentImage jsdoc comment
 /**

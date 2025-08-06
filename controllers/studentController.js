@@ -51,6 +51,29 @@ exports.CreateStudent = async (req, res) => {
   }
 };
 
+exports.LoginStudent = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email) return res.status(400).json({ message: "Email is required" });
+    if (!password) return res.status(400).json({ message: "Password is required" });
+
+    const student = await Student.findOne({ email });
+    if (!student) return res.status(400).json({ message: "Student not found" });
+
+    // const findPassword = await bcrypt.compare(password, student.password);
+    // if (!findPassword) return res.status(400).json({ message: "Password is incorrect" });
+
+    return res
+      .status(200)
+      .json({ message: "Student Login Successfully", student: student });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error Login Student", error: error.message });
+  }
+};
+
 exports.GetAllStudent = async (req, res) => {
   try {
     const getStudents = await Student.find({ teacherId: req.user.userId }).select(
