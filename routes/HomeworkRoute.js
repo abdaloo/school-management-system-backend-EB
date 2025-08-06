@@ -18,9 +18,6 @@ const authMiddleware = require("../middleware/authMiddleware");
  *         - homeworkDetails
  *         - dueDate
  *       properties:
- *         id:
- *           type: string
- *           description: The homework ID
  *         classId:
  *           type: string
  *           description: The class ID for the homework
@@ -38,10 +35,9 @@ const authMiddleware = require("../middleware/authMiddleware");
  *           format: date
  *           description: Due date for the homework
  *       example:
- *         id: "64f8d3e9f91a5b2a88c88f12"
  *         classId: "6888a2de537e6b373783200e"
  *         subjectId: "6888982352fbf5d4997f5c19"
- *         section: "A"
+ *         section: "688c4f370510f4aef8f92c61"
  *         homeworkDetails: "Do the home work in English book , page 4"
  *         dueDate: "2025-08-02"
  */

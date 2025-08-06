@@ -12,7 +12,7 @@ const authMiddleware = require("../middleware/authMiddleware");
  *     Student:
  *       type: object
  *       required:
- *         - userId
+ *         - teacherId
  *         - name
  *         - email
  *         - password
@@ -23,7 +23,7 @@ const authMiddleware = require("../middleware/authMiddleware");
  *         - rollNo
  *         - image
  *       properties:
- *         userId:
+ *         teacherId:
  *           type: string
  *           description: The unique user ID for the student
  *         name:
@@ -56,7 +56,7 @@ const authMiddleware = require("../middleware/authMiddleware");
  *           format: uri
  *           description: URL of the student's image
  *       example:
- *         userId: "688476b4df52238e5679c36e"
+ *         teacherId: "688476b4df52238e5679c36e"
  *         name: "Abdal Khan"
  *         email: "abdalkhan123@gmail.com"
  *         password: "Abdal123"

@@ -17,7 +17,6 @@ const authMiddleware = require("../middleware/authMiddleware");
  *           type: string
  *           description: Name of the subject (e.g., "Mathematics")
  *       example:
- *         teacherId: "64f8d3e9f91a5b2a88c88f12"
  *         name: "Mathematics"
  */
 

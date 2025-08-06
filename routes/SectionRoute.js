@@ -15,9 +15,6 @@ const authMiddleware = require("../middleware/authMiddleware");
  *         - classId
  *         - name
  *       properties:
- *         id:
- *           type: string
- *           description: The section ID
  *         classId:
  *           type: string
  *           description: The class ID this section belongs to
@@ -25,7 +22,6 @@ const authMiddleware = require("../middleware/authMiddleware");
  *           type: string
  *           description: The section name (e.g., "E")
  *       example:
- *         id: "64f8d3e9f91a5b2a88c88f12"
  *         classId: "6888a301537e6b373783201a"
  *         name: "E"
  */

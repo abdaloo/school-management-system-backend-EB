@@ -12,15 +12,11 @@ const authMiddleware = require("../middleware/authMiddleware");
  *       required:
  *         - name
  *       properties:
- *         id:
- *           type: string
- *           description: The class ID
  *         name:
  *           type: string
- *           description: Name of the class (e.g., "class 10")
+ *           description: Name of the class (e.g., "10th")
  *       example:
- *         id: "64f8d3e9f91a5b2a88c88f12"
- *         name: "class 10"
+ *         name: "10th"
  */
 
 /**
