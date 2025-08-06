@@ -1,53 +1,37 @@
 const express = require('express');
-const app = express();
-require('dotenv').config({ quiet: true });
-const ConnectDB = require("./config/connectDB");
-const cors = require("cors");
-const UserRoute = require("./routes/UserRoute");
-const StudentRoute = require("./routes/StudentRoute");
-const AttendanceRoute = require("./routes/AttendanceRoute");
-const SubjectRoute = require("./routes/SubjectRoute");
-const ClassRoute = require("./routes/ClassRoute");
-const EventRoute = require("./routes/EventRoute");
-const HomeworkRoute = require("./routes/HomeworkRoute");
-const AddMarksRoute = require("./routes/AddMarksRoute");
-const SectionRoute = require("./routes/SectionRoute");
-const DateSheetRoute = require("./routes/dateSheetRoute");
-const StudentPromotionRoute = require("./routes/StudentPromotionRoute");
-const QuizRoute = require("./routes/QuizRoute");
-
-// Swagger setup
+const dotenv = require('dotenv');
+const cors = require('cors');
+const ConnectDB = require('./config/connectDB');
 const swaggerSpec = require('./appSwagger');
+const swaggerHtml = require('./customUIHTML');
+
+dotenv.config({ quiet: true });
+
+const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 
-// Swagger JSON endpoint
+// Swagger JSON Endpoint
 app.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(swaggerSpec);
 });
 
-// Custom Swagger UI HTML template
-const swaggerHtml = require('./customUIHTML');
-
-// Swagger UI route with custom HTML
+// Swagger UI Route
 app.get('/api-docs', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
   res.send(swaggerHtml);
 });
 
-// Connect to MongoDB
-ConnectDB();
+// Health Check Route
+app.get("/", (req, res) => {
+  res.send("Server is Fine");
+});
 
-// Health check
-app.get("/",(req,res)=>{
-    res.send("Server is Fine")
-})
-
-// Test endpoint to verify Swagger spec generation
+// Test Swagger Spec Endpoint
 app.get('/test-swagger', (req, res) => {
   try {
     res.json({
@@ -64,25 +48,36 @@ app.get('/test-swagger', (req, res) => {
   }
 });
 
-// Routes
-app.use("/api/v0/user",UserRoute);
-app.use("/api/v0/student",StudentRoute);
-app.use("/api/v0/attendance",AttendanceRoute);
-app.use("/api/v0/subject",SubjectRoute);
-app.use("/api/v0/class",ClassRoute);
-app.use("/api/v0/event",EventRoute);
-app.use("/api/v0/homework",HomeworkRoute);
-app.use("/api/v0/marks",AddMarksRoute);
-app.use("/api/v0/section",SectionRoute);
-app.use("/api/v0/dateSheet",DateSheetRoute);
-app.use("/api/v0/studentPromotion",StudentPromotionRoute);
-app.use("/api/v0/quiz", QuizRoute);
-// For Vercel: export app instead of listen()
+// Connect to MongoDB
+ConnectDB();
+
+// Dynamic Route Loader
+const routes = [
+  { path: '/user', module: './routes/UserRoute' },
+  { path: '/student', module: './routes/StudentRoute' },
+  { path: '/attendance', module: './routes/AttendanceRoute' },
+  { path: '/subject', module: './routes/SubjectRoute' },
+  { path: '/class', module: './routes/ClassRoute' },
+  { path: '/event', module: './routes/EventRoute' },
+  { path: '/homework', module: './routes/HomeworkRoute' },
+  { path: '/marks', module: './routes/AddMarksRoute' },
+  { path: '/section', module: './routes/SectionRoute' },
+  { path: '/dateSheet', module: './routes/dateSheetRoute' },
+  { path: '/studentPromotion', module: './routes/StudentPromotionRoute' },
+  { path: '/quiz', module: './routes/QuizRoute' },
+];
+
+// Register Routes
+routes.forEach(route => {
+  app.use(`/api/v0${route.path}`, require(route.module));
+});
+
+// Export app for Vercel
 module.exports = app;
 
-// Local development only
+// Local Development Server
 if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT;
+  const PORT = process.env.PORT || 3004;
   app.listen(PORT, () => {
     console.log(`Server is running on port: http://localhost:${PORT}`);
   });
